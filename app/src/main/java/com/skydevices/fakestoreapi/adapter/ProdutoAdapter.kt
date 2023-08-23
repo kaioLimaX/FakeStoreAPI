@@ -16,18 +16,18 @@ class ProdutoAdapter(
 
     private val onClick: (responseAPIItem) -> Unit
 
-) : RecyclerView.Adapter<ProdutoAdapter.FilmeViewHolder>() {
+) : RecyclerView.Adapter<ProdutoAdapter.ProdutoViewHolder>() {
 
-    private var listaFilmes = mutableListOf<responseAPIItem>()
+    private var listaProdutos = mutableListOf<responseAPIItem>()
 
     fun adicionarLista(lista : List<responseAPIItem>){
-        this.listaFilmes.clear()
-        this.listaFilmes.addAll(lista)
+        this.listaProdutos.clear()
+        this.listaProdutos.addAll(lista)
         notifyDataSetChanged()
     }
     var showShimmer = true
 
-    inner class FilmeViewHolder(val binding: ItemProdutoBinding)
+    inner class ProdutoViewHolder(val binding: ItemProdutoBinding)
         : RecyclerView.ViewHolder(binding.root) {
 
         val shimmerLayout: ShimmerFrameLayout = binding.shimmerLayout
@@ -83,23 +83,23 @@ class ProdutoAdapter(
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmeViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProdutoViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ItemProdutoBinding.inflate(layoutInflater,parent,false
         )
 
-        return FilmeViewHolder(binding)
+        return ProdutoViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: FilmeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ProdutoViewHolder, position: Int) {
         if (showShimmer) {
             holder.showShimmer(true)
 
         } else {
 
             holder.showShimmer(false)
-            val filme = listaFilmes[position]
-            holder.bind(filme)
+            val produto = listaProdutos[position]
+            holder.bind(produto)
 
 
         }
@@ -109,7 +109,7 @@ class ProdutoAdapter(
 
     override fun getItemCount(): Int {
         val SHIMMER_ITEM_NUMBER = 10
-        return if (showShimmer) SHIMMER_ITEM_NUMBER else listaFilmes.size
+        return if (showShimmer) SHIMMER_ITEM_NUMBER else listaProdutos.size
     }
 
 
